@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const controllers = require('./controllers');
 const db = require('./db');
-const validateSession = require('./middleware/validateSession')
+// const validateSession = require('./middleware/validateSession')
 
 app.use(require('./middleware/headers'));
 app.use(express.json());
