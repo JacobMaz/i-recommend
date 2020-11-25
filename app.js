@@ -8,6 +8,7 @@ const validateSession = require('./middleware/validateSession')
 app.use(require('./middleware/headers'));
 app.use(express.json());
 app.use('/user', controllers.usercontroller);
+app.use('/food', controllers.foodcontroller);
 
 // app.use(express.static(__dirname + '/public'));
 // console.log(__dirname);
