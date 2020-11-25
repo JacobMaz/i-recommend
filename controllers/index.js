@@ -1,3 +1,4 @@
 module.exports = {
-    usercontroller: require('./usercontroller')
+    usercontroller: require('./usercontroller'),
+    foodcontroller: require('./foodcontroller')
 }
