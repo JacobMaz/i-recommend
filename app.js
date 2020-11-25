@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const controllers = require('./controllers');
 const db = require('./db');
+const validateSession = require('./middleware/validateSession')
 
-app.use(express.json())
-app.use('/user', controllers.usercontroller)
+app.use(require('./middleware/headers'));
+app.use(express.json());
+app.use('/user', controllers.usercontroller);
 
 // app.use(express.static(__dirname + '/public'));
 // console.log(__dirname);
