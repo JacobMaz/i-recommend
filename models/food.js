@@ -17,6 +17,22 @@ const Food = db.define('food', {
     foodThree: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    foodFour: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    foodFive: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    owner_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
 
