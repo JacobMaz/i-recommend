@@ -6,6 +6,10 @@ const Food = db.define('food', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    location: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     foodOne: {
         type: DataTypes.STRING,
         allowNull: true
@@ -28,10 +32,6 @@ const Food = db.define('food', {
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    owner_id: {
-        type: DataTypes.INTEGER,
         allowNull: false
     }
 })
