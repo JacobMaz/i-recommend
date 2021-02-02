@@ -6,34 +6,14 @@ const Food = db.define('food', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    cuisine: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     location: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    foodOne: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    foodTwo: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    foodThree: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    foodFour: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    foodFive: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
 })
 
 module.exports = Food;
