@@ -17,6 +17,7 @@ router.post('/register', async (req, res) => {
         })
         const token = jwt.sign({id: newUser.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24})
         res.status(201).json({
+            status: 'success',
             message: 'User registered!',
             user: newUser,
             sessionToken: token
@@ -24,11 +25,13 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         if (error instanceof UniqueConstraintError) {
             res.status(409).json({
-                error: 'Email or Username already in use.'
+                status: 'error',
+                message: 'Email or Username already in use.'
             })
         } else {
             res.status(500).json({
-                error: 'Failed to register user.'
+                status: 'error',
+                message: 'Failed to register user.'
             })
         }
     }
@@ -43,17 +46,22 @@ router.post('/login', async (req, res) => {
         if (loginUser && await bcrypt.compare(password, loginUser.password)) {
             const token = jwt.sign({ id: loginUser.id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
             res.status(200).json({
+                status: 'success',
                 message: 'Login Succeeded',
                 user: loginUser,
                 sessionToken: token
             })
         } else {
             res.status(401).json({
+                status: 'error',
                 message: 'Login Failed: Userinformation incorrect.'
             })
         }
     } catch (error) {
-        res.status(500).json({ error: 'Error Logging In.' })
+        res.status(500).json({
+            status: 'error',
+            message: 'Error Logging In.',
+        })
     }
 })
 
