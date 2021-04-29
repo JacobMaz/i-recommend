@@ -8,8 +8,28 @@ router.get("/test", (req, res) => res.send("FOOD: THIS IS TEST"));
 router.post("/create", validateSession, async (req, res) => {
   if (req.user.role === "user" || req.user.role === "admin") {
     try {
-      const { name, cuisine, location, city, state } = req.body;
-      let newFood = await Food.create({ name, cuisine, location, city, state });
+      const {
+        name,
+        cuisine,
+        location,
+        city,
+        state,
+        phone,
+        website,
+        menu,
+        priceRange,
+      } = req.body;
+      let newFood = await Food.create({
+        name,
+        cuisine,
+        location,
+        city,
+        state,
+        phone,
+        website,
+        menu,
+        priceRange,
+      });
       res.status(200).json({
         food: newFood,
         message: "Food Created!",
@@ -66,20 +86,19 @@ router.get("/cuisine/:cuisine", async (req, res) => {
 router.get("/city/:city", async (req, res) => {
   try {
     let foodByCity = await Food.findAll({
-    where: {city: req.params.city},
-    incluede: ['likes'],
-  });
-  res.status(200).json({
-    foodByCity: foodByCity,
-    message: `Restaurants in ${req.params.city}`
-  })
+      where: { city: req.params.city },
+      incluede: ["likes"],
+    });
+    res.status(200).json({
+      foodByCity: foodByCity,
+      message: `Restaurants in ${req.params.city}`,
+    });
   } catch (error) {
     res.status(500).json({
       error: error,
-      message: 'something went wrong'
-    })
+      message: "something went wrong",
+    });
   }
-  
 });
 
 router.get("/allfood", async (req, res) => {

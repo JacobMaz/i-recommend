@@ -21,6 +21,22 @@ const Food = db.define('food', {
     state: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    website: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    menu: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    priceRange: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
 })
 
