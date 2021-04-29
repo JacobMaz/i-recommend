@@ -12,8 +12,32 @@ const Food = db.define('food', {
     },
     location: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    state: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING,
         allowNull: true
     },
+    website: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    menu: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    priceRange: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    }
 })
 
 module.exports = Food;

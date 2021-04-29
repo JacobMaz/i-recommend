@@ -3,7 +3,7 @@ const db = require('../db');
 
 const Like = db.define('like', {
     like: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     }
 })
