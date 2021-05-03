@@ -69,7 +69,7 @@ router.get("/cuisine/:cuisine", async (req, res) => {
   try {
     let foodByCuisine = await Food.findAll({
       where: { cuisine: req.params.cuisine },
-      incluede: ["likes"],
+      include: ["likes"],
     });
     res.status(200).json({
       foodByCuisine: foodByCuisine,

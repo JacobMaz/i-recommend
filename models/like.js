@@ -5,6 +5,11 @@ const Like = db.define('like', {
     like: {
         type: DataTypes.BOOLEAN,
         allowNull: false
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        unique: true,
+        allowNull: false
     }
 })
 
