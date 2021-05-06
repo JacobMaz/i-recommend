@@ -26,6 +26,21 @@ router.post("/add", validateSession, async (req, res) => {
   }
 });
 
+router.get('/userlikes', validateSession, async (req, res)=>{
+  try {
+    let userLikes = await Like.findAll({
+      where: {userId: req.user.id},
+      include: ['user', 'food']
+    });
+    res.status(200).json({
+      userLikes: userLikes,
+      message: `All of ${req.user.username}'s liked restaurants retrieved`
+    });
+  } catch (error) {
+    res.status(500).json({error: error})
+  }
+})
+
 router.get('/user/:userId', validateSession, async (req, res) => {
   if (req.user.role === 'user' || req.user.role === 'admin') {
     try {
