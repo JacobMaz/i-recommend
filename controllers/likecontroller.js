@@ -11,16 +11,19 @@ router.post("/add", validateSession, async (req, res) => {
       const { like, foodId } = req.body;
       let newLike = await Like.create({ like, userId: req.user.id, foodId });
       res.status(200).json({
+        status: 'success',
         like: newLike,
         message: "Like Added!",
       });
     } catch (error) {
       res.status(500).json({
+        status: 'error',
         message: "Failed to add Like",
       });
     }
   } else {
       res.status(500).json({
+          status: 'error',
           error: 'You Do Not Have Permission'
       })
   }
@@ -69,15 +72,18 @@ router.delete('/:id', validateSession, async (req, res) => {
         where: {id: req.params.id}
       });
       res.status(200).json({
+        status: 'success',
         message: 'Like Deleted',
       });
     } catch (error) {
       res.status(500).json({
+        status: 'error',
         error: 'Something went wrong'
       });
     }
   } else {
     res.status(500).json({
+      status: 'error',
       error: 'You Do Not Have Permission'
     })
   }

@@ -22,6 +22,14 @@ const User = db.define('user',{
     role: {
         type: DataTypes.ENUM('guest', 'user', 'admin'),
         defaultValue: 'user'
+    },
+    resetToken: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    expireToken: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 })
 
