@@ -157,9 +157,6 @@ router.post('/newpassword', (req, res)=>{
     .then(user=>{
       if(!user){
         return res.status(422).json({
-          newPassword: newPassword,
-          sentToken: sentToken,
-          user: user,
           error: 'Try again session expired'
         })
       }
@@ -170,7 +167,6 @@ router.post('/newpassword', (req, res)=>{
           user.expireToken = null;
           user.save().then((savedUser)=>{
             res.json({
-              savedUser: savedUser,
               message: 'password updated successfully',
               status: 'sent'
             })
