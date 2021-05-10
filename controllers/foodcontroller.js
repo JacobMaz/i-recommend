@@ -87,7 +87,7 @@ router.get("/city/:city", async (req, res) => {
   try {
     let foodByCity = await Food.findAll({
       where: { city: req.params.city },
-      incluede: ["likes"],
+      include: ["likes"],
     });
     res.status(200).json({
       foodByCity: foodByCity,
