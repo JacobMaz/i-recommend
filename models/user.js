@@ -30,7 +30,7 @@ const User = db.define('user',{
     expireToken: {
         type: DataTypes.DATE,
         allowNull: true
-    }
+    },
 })
 
 module.exports = User;

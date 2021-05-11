@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 const { UniqueConstraintError } = require("sequelize/lib/errors");
 const validateSession = require("../middleware/validateSession");
 const nodemailer = require("nodemailer");
-const sendgridTransport = require("nodemailer-sendgrid-transport");
+const { userInfo } = require("os");
+// const sendgridTransport = require("nodemailer-sendgrid-transport");
 
 // const transporter = nodemailer.createTransport(sendgridTransport({
 //     auth: {
@@ -23,7 +24,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-router.get("/test", (req, res) => res.send("THIS IS A TEST!"));
+// router.get("/test", (req, res) => res.send("THIS IS A TEST!"));
 
 router.post("/register", async (req, res) => {
   try {
@@ -94,7 +95,25 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/:username", validateSession, async (req, res) => {
+router.get('/userinfo', validateSession, async (req, res)=>{
+  try {
+    let userInfo = await User.findOne({
+      where: {id: req.user.id},
+      include: ['User', 'followed']
+    });
+    res.status(200).json({
+      status: 'success',
+      userInfo: userInfo,
+      message: `${req.user.username}'s info retrieved`
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error
+    })
+  }
+})
+
+router.get("/username/:username", validateSession, async (req, res) => {
   if (req.user.role === "user" || req.user.role === "admin") {
     try {
       let userStuff = await User.findOne({
@@ -176,6 +195,30 @@ router.post('/newpassword', (req, res)=>{
             console.log(err)
           })
     })
+})
+
+router.post('/follow', validateSession, async (req,res)=>{
+  if (req.user.role === "user" || req.user.role === "admin") {
+    try {
+      const currentUser = await User.findOne({where: {id: req.user.id}});
+      const toFollowUser = await User.findOne({where: {id: req.body.id}});
+      currentUser.addUser(toFollowUser);
+      res.status(200).json({
+        status: 'success',
+        message: 'user followed',
+      })
+    } catch (error) {
+      res.status(500).json({
+        status: "error",
+        message: "Failed to Follow",
+      });
+    }
+  } else {
+      res.status(500).json({
+        status: 'error',
+        error: 'You Do Not Have Permission'
+      })
+  }
 })
 
 module.exports = router;
