@@ -221,4 +221,28 @@ router.post('/follow', validateSession, async (req,res)=>{
   }
 })
 
+router.delete('/unfollow', validateSession, async (req, res)=>{
+  if (req.user.role === 'user' || req.user.role === 'admin'){
+    try {
+      const currentUser = await User.findOne({where: {id: req.user.id}});
+    const toUnfollowUser = await User.findOne({where: {id: req.body.id}});
+    currentUser.removeUser(toUnfollowUser);
+    res.status(200).json({
+      status: 'success',
+      message: 'user unfollowed',
+    })
+    } catch (error) {
+      res.status(500).json({
+        status: "error",
+        message: "Failed to Unfollow",
+      });
+    }
+  } else{
+    res.status(500).json({
+      status: 'error',
+      error: 'You Do Not Have Permission'
+    })
+  }
+})
+
 module.exports = router;
