@@ -99,7 +99,7 @@ router.get('/userinfo', validateSession, async (req, res)=>{
   try {
     let userInfo = await User.findOne({
       where: {id: req.user.id},
-      include: ['User', 'followed']
+      include: ['User', 'followed', 'likes']
     });
     res.status(200).json({
       status: 'success',
@@ -118,7 +118,7 @@ router.get("/username/:username", validateSession, async (req, res) => {
     try {
       let userStuff = await User.findOne({
         where: { username: req.params.username },
-        include: ["likes"],
+        include: ["likes", 'followed'],
       });
       res.status(200).json({
         userStuff: userStuff,
